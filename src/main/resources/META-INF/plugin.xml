@@ -2,12 +2,52 @@
 <idea-plugin>
     <id>org.mallowigi.focusmode</id>
     <name>Focus Mode</name>
-    <vendor>AtomMaterial</vendor>
+    <version>@version@</version>
+    <vendor email="elior@material-theme.com" url="https://github.com/mallowigi">AtomMaterial</vendor>
+
+    <description><![CDATA[
+        <p>Focus Mode is a plugin that allows you to focus on your code by dimming the rest of the editor.</p>
+        ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <depends optional="true" config-file="withJava.xml">com.intellij.java</depends>
+    <depends optional="true" config-file="withJavascript.xml">JavaScript</depends>
+
+    <depends optional="true" config-file="withRuby.xml">org.jetbrains.plugins.ruby</depends>
+    <depends optional="true" config-file="withKotlin.xml">org.jetbrains.kotlin</depends>
+    <depends optional="true" config-file="withPhp.xml">com.jetbrains.php</depends>
+    <depends optional="true" config-file="withJson.xml">com.intellij.modules.json</depends>
+    <depends optional="true" config-file="withCss.xml">com.intellij.css</depends>
+    <depends optional="true" config-file="withPython.xml">Pythonid</depends>
+    <depends optional="true" config-file="withGo.xml">org.jetbrains.plugins.go</depends>
+    <depends optional="true" config-file="withSass.xml">org.jetbrains.plugins.sass</depends>
+
+    <resource-bundle>messages.FocusModeBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.mallowigi.focusmode.MTFocusModeManager"
+                            id="MTFocusModeManager"/>
+
+        <textEditorCustomizer implementation="com.mallowigi.focusmode.MTCaretListenerTextEditorCustomizer"/>
+
     </extensions>
+
+    <extensionPoints>
+        <extensionPoint qualifiedName="com.mallowigi.focusmode.focusedElementFinder" dynamic="true"
+                        interface="com.mallowigi.focusmode.MTFocusedElementFinder"/>
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="com.mallowigi">
+        <focusmode.focusedElementFinder
+                implementation="com.mallowigi.focusmode.extensions.XmlFocusedElementFinder"/>
+        <focusmode.focusedElementFinder
+                implementation="com.mallowigi.focusmode.extensions.HtmlFocusedElementFinder"/>
+    </extensions>
+
+    <actions>
+        <action id="MTFocusModeAction"
+                class="com.mallowigi.focusmode.actions.MTFocusModeAction"
+                icon="/icons/actions/focusMode.svg"/>
+    </actions>
 </idea-plugin>
