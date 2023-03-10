@@ -24,14 +24,8 @@
  *
  ******************************************************************************/
 
-rootProject.name = "focus-mode-jetbrains"
-
-
-pluginManagement {
-  repositories {
-    maven {
-      url = java.net.URI("https://oss.sonatype.org/content/repositories/snapshots/")
-    }
-    gradlePluginPortal()
-  }
-}
+module.exports = {
+  extends: [
+    '@commitlint/config-conventional',
+  ],
+};
