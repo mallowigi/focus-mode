@@ -2,7 +2,7 @@
  * ****************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2015-2022 Elior "Mallowigi" Boukhobza
+ * Copyright (c) 2015-2023 Elior "Mallowigi" Boukhobza
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,38 +24,31 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
+
 package com.mallowigi.focusmode.config
 
-import com.intellij.openapi.components.PersistentStateComponent
-import com.mallowigi.focusmode.MTFormUI
+import com.intellij.openapi.components.BaseState
+import com.intellij.openapi.components.Service
+import com.intellij.ui.ColorUtil
+import com.mallowigi.focusmode.MTConfig
+import java.awt.Color
 
-/** Base class for configuration classes. */
-interface MTBaseConfig<FORM : MTFormUI?, CONFIG : PersistentStateComponent<*>?> {
-  /**
-   * Load state
-   *
-   * @param state
-   */
-  fun loadState(state: CONFIG)
+@Service(Service.Level.APP)
+class MTMainConfigState : BaseState() {
+  var isFocusModeEnabled: Boolean by property(false)
 
-  /**
-   * Fire an event to the application bus that the settings have changed
-   *
-   * @param form the form state
-   */
-  fun fireBeforeChanged(form: FORM)
+  var overrideFocusColor: Boolean by property(true)
 
-  /** Fire changed. */
-  fun fireChanged()
+  var focusColorHex: String? by string(DEFAULT_FOCUS_COLOR)
 
-  /**
-   * Apply settings
-   *
-   * @param form
-   */
-  fun applySettings(form: FORM)
+  val focusColor: Color
+    get() = ColorUtil.fromHex(this.focusColorHex ?: DEFAULT_FOCUS_COLOR)
 
-  /** Convenience method to reset settings. */
-  fun resetSettings()
+  companion object {
+    const val DEFAULT_FOCUS_COLOR: String = "#424242"
 
+    val instance: MTMainConfigState
+      get() = MTConfig.instance.settingsState
+
+  }
 }

@@ -8,19 +8,12 @@ import com.intellij.openapi.util.NlsContexts
 import org.jetbrains.annotations.Contract
 import org.jetbrains.annotations.NonNls
 import org.jetbrains.annotations.PropertyKey
-import java.util.Locale
-import java.util.ResourceBundle
-import java.util.function.Supplier
+import java.util.*
 
 @NonNls
 private const val BUNDLE: String = "messages.FocusModeBundle"
 
 
-/**
- * Get strings of the Material Theme Resource Bundle
- *
- * @constructor Create empty Material theme bundle
- */
 @Suppress("UnstableApiUsage")
 object FocusModeBundle : DynamicBundle(BUNDLE) {
   private var locale: Locale? = null
@@ -52,7 +45,7 @@ object FocusModeBundle : DynamicBundle(BUNDLE) {
       PluginManager.isPluginInstalled(PluginId.getId("com.intellij.ja")) -> Locale.JAPAN
       PluginManager.isPluginInstalled(PluginId.getId("com.intellij.zh")) -> Locale.CHINA
       PluginManager.isPluginInstalled(PluginId.getId("com.intellij.ko")) -> Locale.KOREA
-      else                                                               -> Locale.US
+      else -> Locale.US
     }
     Locale.setDefault(locale)
     return ResourceBundle.getBundle(BUNDLE)

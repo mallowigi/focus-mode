@@ -3,10 +3,11 @@ package com.mallowigi.focusmode
 import com.intellij.ide.ui.LafManager
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
+import com.mallowigi.focusmode.config.MTMainConfigState
 
 @Service(Service.Level.APP)
 class MTFocusModeManager {
-  fun isEnabled(): Boolean = MTConfig.getInstance().isFocusModeEnabled
+  fun isEnabled(): Boolean = MTMainConfigState.instance.isFocusModeEnabled
 
   /**
    * Set enabled state and fire event
@@ -15,9 +16,8 @@ class MTFocusModeManager {
    * @param editor pass the editor if needed
    */
   private fun setEnabled(enabled: Boolean) {
-    MTConfig.getInstance().isFocusModeEnabled = enabled
+    MTMainConfigState.instance.isFocusModeEnabled = enabled
   }
-
 
   fun toggleFocusMode() {
     val focusModeEnabled = isEnabled()

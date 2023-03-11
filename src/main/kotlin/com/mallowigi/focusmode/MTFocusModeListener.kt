@@ -32,6 +32,7 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.FileEditorManagerListener
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFile
+import com.mallowigi.focusmode.config.MTMainConfigState
 
 /** Disable Focus Mode on large files. */
 class MTFocusModeListener : FileEditorManagerListener.Before {
@@ -45,7 +46,7 @@ class MTFocusModeListener : FileEditorManagerListener.Before {
     if (EXTENSIONS.contains(extension) && text.lines().size > MAX_LOC) {
       EditorSettingsExternalizable.getInstance().isFocusMode = false
     } else {
-      EditorSettingsExternalizable.getInstance().isFocusMode = MTConfig.getInstance().isFocusModeEnabled
+      EditorSettingsExternalizable.getInstance().isFocusMode = MTMainConfigState.instance.isFocusModeEnabled
     }
     EditorFactory.getInstance().refreshAllEditors()
   }

@@ -25,9 +25,9 @@
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 <idea-plugin>
-    <extensions defaultExtensionNs="com.mallowigi">
-        <idea.focusmode.focusedElementFinder
-                implementation="com.mallowigi.focusmode.extensions.JsonFocusedElementFinder"/>
-    </extensions>
+  <extensions defaultExtensionNs="com.mallowigi">
+    <focusmode.focusedElementFinder
+      implementation="com.mallowigi.focusmode.extensions.JsonFocusedElementFinder"/>
+  </extensions>
 
 </idea-plugin>

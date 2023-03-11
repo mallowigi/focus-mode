@@ -2,7 +2,7 @@
  * ****************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2015-2022 Elior "Mallowigi" Boukhobza
+ * Copyright (c) 2015-2023 Elior "Mallowigi" Boukhobza
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,22 +25,19 @@
  * ****************************************************************************
  */
 
-package com.mallowigi.focusmode.extensions
+package com.mallowigi.focusmode.config
 
-import com.intellij.lang.Language
-import com.intellij.lang.javascript.JSLanguageDialect
-import com.intellij.lang.javascript.psi.JSFunction
-import com.intellij.lang.javascript.psi.ecmal4.JSClass
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
+import com.intellij.openapi.components.BaseState
+import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.service
 
-class JSFocusedElementFinder : AbstractFocusedElementFinder(Language.ANY) {
-  override fun findElement(file: PsiFile, offset: Int): PsiElement? {
-    if (file.language !is JSLanguageDialect) return null
+@Service(Service.Level.APP)
+class MTMetadataState : BaseState() {
+  var pristineConfig: Boolean by property(true)
 
-    return super.getElement(file, offset)
+  companion object {
+    @JvmStatic
+    val instance: MTMetadataState
+      get() = service()
   }
-
-  override fun isFocusParent(element: PsiElement): Boolean =
-    element is JSFunction || element is JSClass
 }

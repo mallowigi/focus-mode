@@ -59,27 +59,6 @@ object MTNotifications {
   }
 
   /**
-   * Shows [Notification] in [MTNotifications.CHANNEL] group.
-   *
-   * @param project current project
-   * @param title notification title
-   * @param content notification text
-   * @param type notification type
-   * @param action action
-   */
-  @JvmStatic
-  fun showWithListener(
-    project: Project,
-    @NlsContexts.NotificationTitle title: String,
-    @NlsContexts.NotificationContent content: String,
-    type: NotificationType,
-    action: AnAction,
-  ) {
-    val notification = createNotification(title, content, type, action)
-    Notifications.Bus.notify(notification, project)
-  }
-
-  /**
    * Create a notification
    *
    * @param title notification title

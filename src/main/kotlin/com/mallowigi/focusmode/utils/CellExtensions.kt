@@ -2,7 +2,7 @@
  * ****************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2015-2022 Elior "Mallowigi" Boukhobza
+ * Copyright (c) 2015-2023 Elior "Mallowigi" Boukhobza
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,22 +25,20 @@
  * ****************************************************************************
  */
 
-package com.mallowigi.focusmode.extensions
+package com.mallowigi.focusmode.utils
 
-import com.intellij.lang.Language
-import com.intellij.lang.javascript.JSLanguageDialect
-import com.intellij.lang.javascript.psi.JSFunction
-import com.intellij.lang.javascript.psi.ecmal4.JSClass
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
+import com.intellij.ui.ColorPanel
+import com.intellij.ui.ColorUtil
+import com.intellij.ui.dsl.builder.Cell
+import kotlin.reflect.KMutableProperty0
 
-class JSFocusedElementFinder : AbstractFocusedElementFinder(Language.ANY) {
-  override fun findElement(file: PsiFile, offset: Int): PsiElement? {
-    if (file.language !is JSLanguageDialect) return null
-
-    return super.getElement(file, offset)
+fun Cell<ColorPanel>.bind(property: KMutableProperty0<String?>, fallbackValue: String) {
+  this.component.selectedColor = ColorUtil.fromHex(property.get() ?: fallbackValue)
+  this.component.addActionListener {
+    property.set(
+      ColorUtil.toHex(
+        this.component.selectedColor ?: return@addActionListener
+      )
+    )
   }
-
-  override fun isFocusParent(element: PsiElement): Boolean =
-    element is JSFunction || element is JSClass
 }

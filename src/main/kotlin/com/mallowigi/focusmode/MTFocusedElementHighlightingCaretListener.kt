@@ -42,8 +42,8 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiEditorUtil
-import com.intellij.ui.ColorUtil
 import com.mallowigi.focusmode.config.ConfigNotifier
+import com.mallowigi.focusmode.config.MTMainConfigState
 import kotlin.math.max
 
 class MTFocusedElementHighlightingCaretListener(
@@ -198,7 +198,7 @@ class MTFocusedElementHighlightingCaretListener(
     val inactiveTextAttributes: TextAttributes
       get() {
         val inactiveTextAttributes = TextAttributes()
-        inactiveTextAttributes.foregroundColor = ColorUtil.fromHex(MTConfig.getInstance().themeFocusColor)
+        inactiveTextAttributes.foregroundColor = MTMainConfigState.instance.focusColor
         return inactiveTextAttributes
       }
   }

@@ -27,10 +27,8 @@
 package com.mallowigi.focusmode.config
 
 import com.mallowigi.focusmode.MTConfig
-import com.mallowigi.focusmode.MTForm
 
 
-/** Listener for when Material Theme config is changed. */
 interface ConfigNotifier {
   /**
    * When Config is changed (settings)
@@ -45,5 +43,5 @@ interface ConfigNotifier {
    * @param mtConfig the current config, before changes
    * @param form the new form valuess
    */
-  fun beforeConfigChanged(mtConfig: MTConfig, form: MTForm): Unit = Unit
+  fun beforeConfigChanged(mtConfig: MTConfig): Unit = Unit
 }
