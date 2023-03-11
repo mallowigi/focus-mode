@@ -23,7 +23,7 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.mallowigi.focusmode
+package com.mallowigi.focusmode.config
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
@@ -32,22 +32,21 @@ import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.service
 import com.intellij.util.xmlb.XmlSerializerUtil
-import com.mallowigi.focusmode.config.MTMainConfigState
-import com.mallowigi.focusmode.config.MTMetadataState
+import com.mallowigi.focusmode.Topics
 
 @State(name = "FocusModeConfig", storages = [Storage("focus_mode.xml")], category = SettingsCategory.UI)
-class MTConfig : PersistentStateComponent<MTConfig>, Cloneable {
+class FocusModeConfig : PersistentStateComponent<FocusModeConfig>, Cloneable {
   private var firstRun: Boolean = true
   private var isReset: Boolean = false
 
-  private var metadata: MTMetadataState = MTMetadataState()
-  var settingsState: MTMainConfigState = MTMainConfigState()
+  private var metadata: FocusModeMetadataState = FocusModeMetadataState()
+  var settingsState: FocusModeState = FocusModeState()
 
-  public override fun clone(): MTConfig = XmlSerializerUtil.createCopy(this)
+  public override fun clone(): FocusModeConfig = XmlSerializerUtil.createCopy(this)
 
-  override fun getState(): MTConfig = this
+  override fun getState(): FocusModeConfig = this
 
-  override fun loadState(state: MTConfig) {
+  override fun loadState(state: FocusModeConfig) {
     val changed = state != this
     XmlSerializerUtil.copyBean(state, this)
     if (changed && !firstRun) {
@@ -59,14 +58,14 @@ class MTConfig : PersistentStateComponent<MTConfig>, Cloneable {
   /** Fire event before saving the form values. */
   private fun fireBeforeChanged() {
     ApplicationManager.getApplication().messageBus
-      .syncPublisher(MTTopics.CONFIG)
+      .syncPublisher(Topics.CONFIG)
       .beforeConfigChanged(this)
   }
 
   /** Fire an event to the application bus that the settings have changed. */
   private fun fireChanged() {
     ApplicationManager.getApplication().messageBus
-      .syncPublisher(MTTopics.CONFIG)
+      .syncPublisher(Topics.CONFIG)
       .configChanged(this)
   }
 
@@ -78,13 +77,7 @@ class MTConfig : PersistentStateComponent<MTConfig>, Cloneable {
     fireChanged()
   }
 
-  /** Reset the settings to the default values. */
-  fun resetSettings() {
-    isReset = true
-    metadata.pristineConfig = true
-  }
-
   companion object {
-    val instance: MTConfig by lazy { service() }
+    val instance: FocusModeConfig by lazy { service() }
   }
 }

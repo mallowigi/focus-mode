@@ -2,7 +2,7 @@
  * ****************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2015-2022 Elior "Mallowigi" Boukhobza
+ * Copyright (c) 2015-2023 Elior "Mallowigi" Boukhobza
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,28 +25,19 @@
  * ****************************************************************************
  */
 
-package com.mallowigi.focusmode
+package com.mallowigi.focusmode.config
 
-import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
+import com.intellij.openapi.components.BaseState
+import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.service
 
-/**
- * Interface for language highlighters to implement their own focused
- * elements finder.
- */
-interface MTFocusedElementFinder {
-  /**
-   * Find a focused element in a file
-   *
-   * @param file the file
-   * @param offset the offset
-   * @return the focused psiElement
-   */
-  fun findElement(file: PsiFile, offset: Int): PsiElement?
+@Service(Service.Level.APP)
+class FocusModeMetadataState : BaseState() {
+  var pristineConfig: Boolean by property(true)
 
   companion object {
-    val EP_NAME: ExtensionPointName<MTFocusedElementFinder> =
-      ExtensionPointName.create("com.mallowigi.focusmode.focusedElementFinder")
+    @JvmStatic
+    val instance: FocusModeMetadataState
+      get() = service()
   }
 }

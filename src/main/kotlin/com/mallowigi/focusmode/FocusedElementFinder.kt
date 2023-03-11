@@ -24,10 +24,29 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
-package com.mallowigi.focusmode.config
 
-interface ConfigNotifier {
-  fun configChanged(focusModeConfig: FocusModeConfig): Unit = Unit
+package com.mallowigi.focusmode
 
-  fun beforeConfigChanged(focusModeConfig: FocusModeConfig): Unit = Unit
+import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
+
+/**
+ * Interface for language highlighters to implement their own focused
+ * elements finder.
+ */
+interface FocusedElementFinder {
+  /**
+   * Find a focused element in a file
+   *
+   * @param file the file
+   * @param offset the offset
+   * @return the focused psiElement
+   */
+  fun findElement(file: PsiFile, offset: Int): PsiElement?
+
+  companion object {
+    val EP_NAME: ExtensionPointName<FocusedElementFinder> =
+      ExtensionPointName.create("com.mallowigi.focusmode.focusedElementFinder")
+  }
 }

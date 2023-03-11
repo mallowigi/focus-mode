@@ -43,15 +43,16 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiEditorUtil
 import com.mallowigi.focusmode.config.ConfigNotifier
-import com.mallowigi.focusmode.config.MTMainConfigState
+import com.mallowigi.focusmode.config.FocusModeConfig
+import com.mallowigi.focusmode.config.FocusModeState
 import kotlin.math.max
 
-class MTFocusedElementHighlightingCaretListener(
+class FocusedElementHighlightingCaretListener(
   private val project: Project,
   private val editor: Editor,
-  private val elementFinders: Collection<MTFocusedElementFinder>,
+  private val elementFinders: Collection<FocusedElementFinder>,
 ) : CaretListener, Disposable {
-  private val focusModeManager: MTFocusModeManager = MTFocusModeManager.instance
+  private val focusModeManager: FocusModeManager = FocusModeManager.instance
 
   // A list of computed highlighted ranges
   private val highlighters: MutableList<RangeHighlighter> = mutableListOf()
@@ -60,8 +61,8 @@ class MTFocusedElementHighlightingCaretListener(
     val connect = ApplicationManager.getApplication().messageBus.connect()
 
     // subscribe with lambda
-    connect.subscribe(MTTopics.CONFIG, object : ConfigNotifier {
-      override fun configChanged(mtConfig: MTConfig) = highlightIfNeeded()
+    connect.subscribe(Topics.CONFIG, object : ConfigNotifier {
+      override fun configChanged(focusModeConfig: FocusModeConfig) = highlightIfNeeded()
     })
   }
 
@@ -198,12 +199,12 @@ class MTFocusedElementHighlightingCaretListener(
     val inactiveTextAttributes: TextAttributes
       get() {
         val inactiveTextAttributes = TextAttributes()
-        inactiveTextAttributes.foregroundColor = MTMainConfigState.instance.focusColor
+        inactiveTextAttributes.foregroundColor = FocusModeState.instance.focusColor
         return inactiveTextAttributes
       }
   }
 
   companion object {
-    const val PRIORITY: Int = 5999;
+    const val PRIORITY: Int = 5999
   }
 }

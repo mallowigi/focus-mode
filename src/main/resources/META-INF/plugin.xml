@@ -27,21 +27,21 @@
   <resource-bundle>messages.FocusModeBundle</resource-bundle>
 
   <extensions defaultExtensionNs="com.intellij">
-    <applicationService serviceImplementation="com.mallowigi.focusmode.MTConfig"
+    <applicationService serviceImplementation="com.mallowigi.focusmode.config.FocusModeConfig"
                         id="MTConfig"/>
-    <applicationConfigurable instance="com.mallowigi.focusmode.config.MTMainSettingsConfigurable"
+    <applicationConfigurable instance="com.mallowigi.focusmode.config.FocusModeConfigurable"
                              groupId="appearance"/>
 
-    <applicationService serviceImplementation="com.mallowigi.focusmode.MTFocusModeManager"
+    <applicationService serviceImplementation="com.mallowigi.focusmode.FocusModeManager"
                         id="MTFocusModeManager"/>
 
-    <textEditorCustomizer implementation="com.mallowigi.focusmode.MTCaretListenerTextEditorCustomizer"/>
+    <textEditorCustomizer implementation="com.mallowigi.focusmode.CaretListenerTextEditorCustomizer"/>
 
   </extensions>
 
   <extensionPoints>
     <extensionPoint qualifiedName="com.mallowigi.focusmode.focusedElementFinder" dynamic="true"
-                    interface="com.mallowigi.focusmode.MTFocusedElementFinder"/>
+                    interface="com.mallowigi.focusmode.FocusedElementFinder"/>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.mallowigi">
@@ -53,11 +53,11 @@
 
   <actions>
     <action id="MTFocusModeAction"
-            class="com.mallowigi.focusmode.actions.MTFocusModeAction"
+            class="com.mallowigi.focusmode.actions.FocusModeAction"
             icon="/icons/actions/focusMode.svg"/>
   </actions>
 
   <applicationListeners>
-    <listener class="com.mallowigi.focusmode.MTApplicationComponent" topic="com.intellij.ide.AppLifecycleListener"/>
+    <listener class="com.mallowigi.focusmode.ApplicationComponent" topic="com.intellij.ide.AppLifecycleListener"/>
   </applicationListeners>
 </idea-plugin>

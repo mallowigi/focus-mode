@@ -35,19 +35,14 @@ import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.selected
 import com.intellij.ui.layout.not
-import com.mallowigi.focusmode.MTConfig
 import com.mallowigi.focusmode.messages.FocusModeBundle.message
 import com.mallowigi.focusmode.utils.bind
 
-class MTMainSettingsConfigurable : BoundSearchableConfigurable(
-  message("MTForm.focusModeCheckbox.text"),
-  "com.mallowigi.idea.help.$HELP_ID",
-) {
+class FocusModeConfigurable : BoundSearchableConfigurable(message("MTForm.focusModeCheckbox.text"), HELP_ID) {
   private var main: DialogPanel? = null
 
-  private val mainSettings: MTMainConfigState = MTMainConfigState.instance
+  private val mainSettings: FocusModeState = FocusModeState.instance
 
-  /** ID of the configurable. */
   override fun getId(): String = ID
 
   private fun init() {
@@ -74,7 +69,7 @@ class MTMainSettingsConfigurable : BoundSearchableConfigurable(
 
           cell(colorChooser)
             .enabledIf(overrideCheckbox.selected.not())
-            .bind(mainSettings::focusColorHex, MTMainConfigState.DEFAULT_FOCUS_COLOR)
+            .bind(mainSettings::focusColorHex, FocusModeState.DEFAULT_FOCUS_COLOR)
         }
       }
 
@@ -88,13 +83,13 @@ class MTMainSettingsConfigurable : BoundSearchableConfigurable(
 
   override fun apply() {
     super.apply()
-    MTConfig.instance.applySettings()
+    FocusModeConfig.instance.applySettings()
   }
 
   companion object {
-    const val ID: String = "MTMainSettingsConfigurable"
+    const val ID: String = "FocusModeConfigurable"
 
-    const val HELP_ID: String = "MTMainSettingsConfigurable"
+    const val HELP_ID: String = "FocusModeConfigurable"
   }
 
 }

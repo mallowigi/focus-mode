@@ -26,36 +26,31 @@
  */
 package com.mallowigi.focusmode
 
-import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.editor.ex.EditorSettingsExternalizable
-import com.intellij.openapi.fileEditor.FileEditorManager
-import com.intellij.openapi.fileEditor.FileEditorManagerListener
-import com.intellij.openapi.vfs.VfsUtil
-import com.intellij.openapi.vfs.VirtualFile
-import com.mallowigi.focusmode.config.MTMainConfigState
+import com.intellij.openapi.fileEditor.TextEditor
+import com.intellij.openapi.fileEditor.impl.text.TextEditorCustomizer
+import com.intellij.openapi.util.Disposer
 
-/** Disable Focus Mode on large files. */
-class MTFocusModeListener : FileEditorManagerListener.Before {
-  /** Run before file is open. */
-  override fun beforeFileOpened(source: FileEditorManager, file: VirtualFile): Unit = enableDisableFocusMode(file)
+class CaretListenerTextEditorCustomizer : TextEditorCustomizer {
+  override fun customize(textEditor: TextEditor) {
+    val editor = textEditor.editor
+    val project = editor.project ?: return
 
-  private fun enableDisableFocusMode(file: VirtualFile) {
-    val extension = file.extension ?: return
-    val text = VfsUtil.loadText(file)
+    // Get element finder extensions
+    val elementFinders = this.collectElementFinders()
 
-    if (EXTENSIONS.contains(extension) && text.lines().size > MAX_LOC) {
-      EditorSettingsExternalizable.getInstance().isFocusMode = false
-    } else {
-      EditorSettingsExternalizable.getInstance().isFocusMode = MTMainConfigState.instance.isFocusModeEnabled
-    }
-    EditorFactory.getInstance().refreshAllEditors()
+    // Add a caret listener for the current editor and project
+    val listener = FocusedElementHighlightingCaretListener(project, editor, elementFinders)
+    editor.caretModel.addCaretListener(listener)
+    // Dont forget to dispose
+    Disposer.register(textEditor, listener)
   }
 
-  companion object {
-    /** Max Lines of code. */
-    const val MAX_LOC: Int = 400
-
-    /** Extensions. */
-    val EXTENSIONS: Set<String> = setOf("json")
-  }
+  /**
+   * Collect element finder extensions
+   *
+   * @return the list of extensions implementing the [FocusedElementFinder]
+   *     interface
+   */
+  private fun collectElementFinders(): Collection<FocusedElementFinder> =
+    FocusedElementFinder.EP_NAME.extensionList
 }

@@ -30,15 +30,12 @@ import com.intellij.notification.Notification
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.NlsContexts
-import org.jetbrains.annotations.NotNull
-
 
 /** Service for sending notifications. */
 @Suppress("UnstableApiUsage")
-object MTNotifications {
+object Notifications {
 
   /** Notification channel ID. */
   private const val CHANNEL: String = "Focus Mode Notifications"
@@ -75,19 +72,4 @@ object MTNotifications {
     return group.createNotification(title, content, type)
   }
 
-  /**
-   * Create a notification
-   *
-   * @param title notification title
-   * @param content the content
-   * @param type the type (sticky…)
-   * @param action action
-   * @return new notification to be displayed
-   */
-  private fun createNotification(
-    @NlsContexts.NotificationTitle title: String,
-    @NlsContexts.NotificationContent content: String,
-    type: NotificationType,
-    @NotNull action: AnAction,
-  ): Notification = createNotification(title, content, type).addAction(action)
 }

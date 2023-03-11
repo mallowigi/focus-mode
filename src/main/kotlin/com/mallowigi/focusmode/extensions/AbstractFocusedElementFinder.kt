@@ -31,9 +31,9 @@ import com.intellij.lang.Language
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiUtilCore
-import com.mallowigi.focusmode.MTFocusedElementFinder
+import com.mallowigi.focusmode.FocusedElementFinder
 
-abstract class AbstractFocusedElementFinder(private val language: Language) : MTFocusedElementFinder {
+abstract class AbstractFocusedElementFinder(private val language: Language) : FocusedElementFinder {
 
   /**
    * Find element: Find the closest parent of the current element

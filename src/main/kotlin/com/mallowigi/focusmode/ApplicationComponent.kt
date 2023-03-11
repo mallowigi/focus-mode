@@ -2,7 +2,7 @@
  * ****************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2015-2023 Elior "Mallowigi" Boukhobza
+ * Copyright (c) 2015-2022 Elior "Mallowigi" Boukhobza
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,31 +24,30 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
+package com.mallowigi.focusmode
 
-package com.mallowigi.focusmode.config
+import com.intellij.ide.AppLifecycleListener
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.ex.EditorSettingsExternalizable
+import com.mallowigi.focusmode.config.FocusModeState
 
-import com.intellij.openapi.components.BaseState
-import com.intellij.openapi.components.Service
-import com.intellij.ui.ColorUtil
-import com.mallowigi.focusmode.MTConfig
-import java.awt.Color
+class ApplicationComponent : AppLifecycleListener {
+  val instance: ApplicationComponent
+    get() = ApplicationManager.getApplication().getComponent(ApplicationComponent::class.java)
 
-@Service(Service.Level.APP)
-class MTMainConfigState : BaseState() {
-  var isFocusModeEnabled: Boolean by property(false)
+  override fun welcomeScreenDisplayed(): Unit = initComponent()
 
-  var overrideFocusColor: Boolean by property(true)
+  override fun appClosing(): Unit = disposeComponent()
 
-  var focusColorHex: String? by string(DEFAULT_FOCUS_COLOR)
+  private fun initComponent() = applyFocusMode()
 
-  val focusColor: Color
-    get() = ColorUtil.fromHex(this.focusColorHex ?: DEFAULT_FOCUS_COLOR)
-
-  companion object {
-    const val DEFAULT_FOCUS_COLOR: String = "#424242"
-
-    val instance: MTMainConfigState
-      get() = MTConfig.instance.settingsState
-
+  private fun applyFocusMode() {
+    val enabled = FocusModeState.instance.isFocusModeEnabled
+    FocusModeManager.instance.setEnabled(enabled)
   }
+
+  private fun disposeComponent() {
+    EditorSettingsExternalizable.getInstance().isFocusMode = false
+  }
+
 }

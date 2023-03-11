@@ -24,21 +24,17 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
-@file:Suppress("KDocMissingDocumentation")
+package com.mallowigi.focusmode.actions
 
-package com.mallowigi.focusmode
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.mallowigi.focusmode.FocusModeManager
+import com.mallowigi.focusmode.config.FocusModeState
 
-import com.intellij.util.messages.Topic
-import com.mallowigi.focusmode.config.ConfigNotifier
+class FocusModeAction : BaseToggleAction() {
+  override fun isSelected(e: AnActionEvent): Boolean = FocusModeState.instance.isFocusModeEnabled
 
-/** Configuration Save Events. */
-enum class MTTopics {
-  DEFAULT;
-
-  companion object {
-    @Topic.AppLevel
-    @Topic.ProjectLevel
-    @JvmField
-    val CONFIG: Topic<ConfigNotifier> = Topic.create("Material Theme Config save", ConfigNotifier::class.java)
+  override fun setSelected(e: AnActionEvent, state: Boolean) {
+    FocusModeManager.instance.toggleFocusMode()
+    super.setSelected(e, state)
   }
 }

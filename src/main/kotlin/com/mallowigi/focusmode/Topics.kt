@@ -2,7 +2,7 @@
  * ****************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2015-2023 Elior "Mallowigi" Boukhobza
+ * Copyright (c) 2015-2022 Elior "Mallowigi" Boukhobza
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,20 +24,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
+@file:Suppress("KDocMissingDocumentation")
 
-package com.mallowigi.focusmode.config
+package com.mallowigi.focusmode
 
-import com.intellij.openapi.components.BaseState
-import com.intellij.openapi.components.Service
-import com.intellij.openapi.components.service
+import com.intellij.util.messages.Topic
+import com.mallowigi.focusmode.config.ConfigNotifier
 
-@Service(Service.Level.APP)
-class MTMetadataState : BaseState() {
-  var pristineConfig: Boolean by property(true)
+/** Configuration Save Events. */
+enum class Topics {
+  DEFAULT;
 
   companion object {
-    @JvmStatic
-    val instance: MTMetadataState
-      get() = service()
+    @Topic.AppLevel
+    @Topic.ProjectLevel
+    @JvmField
+    val CONFIG: Topic<ConfigNotifier> = Topic.create("Material Theme Config save", ConfigNotifier::class.java)
   }
 }

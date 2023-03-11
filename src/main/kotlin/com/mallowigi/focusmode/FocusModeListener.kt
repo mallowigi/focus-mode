@@ -24,17 +24,38 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
-package com.mallowigi.focusmode.actions
+package com.mallowigi.focusmode
 
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.mallowigi.focusmode.MTFocusModeManager
-import com.mallowigi.focusmode.config.MTMainConfigState
+import com.intellij.openapi.editor.EditorFactory
+import com.intellij.openapi.editor.ex.EditorSettingsExternalizable
+import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.fileEditor.FileEditorManagerListener
+import com.intellij.openapi.vfs.VfsUtil
+import com.intellij.openapi.vfs.VirtualFile
+import com.mallowigi.focusmode.config.FocusModeState
 
-class MTFocusModeAction : MTToggleAction() {
-  override fun isSelected(e: AnActionEvent): Boolean = MTMainConfigState.instance.isFocusModeEnabled
+/** Disable Focus Mode on large files. */
+class FocusModeListener : FileEditorManagerListener.Before {
+  /** Run before file is open. */
+  override fun beforeFileOpened(source: FileEditorManager, file: VirtualFile): Unit = enableDisableFocusMode(file)
 
-  override fun setSelected(e: AnActionEvent, state: Boolean) {
-    MTFocusModeManager.instance.toggleFocusMode()
-    super.setSelected(e, state)
+  private fun enableDisableFocusMode(file: VirtualFile) {
+    val extension = file.extension ?: return
+    val text = VfsUtil.loadText(file)
+
+    if (EXTENSIONS.contains(extension) && text.lines().size > MAX_LOC) {
+      EditorSettingsExternalizable.getInstance().isFocusMode = false
+    } else {
+      EditorSettingsExternalizable.getInstance().isFocusMode = FocusModeState.instance.isFocusModeEnabled
+    }
+    EditorFactory.getInstance().refreshAllEditors()
+  }
+
+  companion object {
+    /** Max Lines of code. */
+    const val MAX_LOC: Int = 400
+
+    /** Extensions. */
+    val EXTENSIONS: Set<String> = setOf("json")
   }
 }

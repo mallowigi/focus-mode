@@ -2,7 +2,7 @@
  * ****************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2015-2022 Elior "Mallowigi" Boukhobza
+ * Copyright (c) 2015-2023 Elior "Mallowigi" Boukhobza
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,32 +24,36 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
-package com.mallowigi.focusmode
 
-import com.intellij.ide.AppLifecycleListener
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.editor.ex.EditorSettingsExternalizable
-import com.mallowigi.focusmode.config.MTMainConfigState
+package com.mallowigi.focusmode.config
 
-class MTApplicationComponent : AppLifecycleListener {
-  val instance: MTApplicationComponent
-    get() = ApplicationManager.getApplication().getComponent(MTApplicationComponent::class.java)
+import com.intellij.openapi.components.BaseState
+import com.intellij.openapi.components.Service
+import com.intellij.ui.ColorUtil
+import com.intellij.util.ui.UIUtil
+import java.awt.Color
 
-  override fun welcomeScreenDisplayed(): Unit = initComponent()
+@Service(Service.Level.APP)
+class FocusModeState : BaseState() {
+  var isFocusModeEnabled: Boolean by property(false)
 
-  override fun appClosing(): Unit = disposeComponent()
+  var overrideFocusColor: Boolean by property(true)
 
-  private fun initComponent() {
-    applyFocusMode()
+  var focusColorHex: String? by string(DEFAULT_FOCUS_COLOR)
+
+  val focusColor: Color
+    get() {
+      return when {
+        this.overrideFocusColor -> ColorUtil.fromHex(this.focusColorHex ?: DEFAULT_FOCUS_COLOR)
+        else -> UIUtil.getLabelDisabledForeground()
+      }
+    }
+
+  companion object {
+    const val DEFAULT_FOCUS_COLOR: String = "#424242"
+
+    val instance: FocusModeState
+      get() = FocusModeConfig.instance.settingsState
+
   }
-
-  private fun applyFocusMode() {
-    val enabled = MTMainConfigState.instance.isFocusModeEnabled
-    MTFocusModeManager.instance.setEnabled(enabled)
-  }
-
-  private fun disposeComponent() {
-    EditorSettingsExternalizable.getInstance().isFocusMode = false
-  }
-
 }
