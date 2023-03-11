@@ -44,8 +44,8 @@ class FocusModeState : BaseState() {
   val focusColor: Color
     get() {
       return when {
-        this.overrideFocusColor -> ColorUtil.fromHex(this.focusColorHex ?: DEFAULT_FOCUS_COLOR)
-        else -> UIUtil.getLabelDisabledForeground()
+        this.overrideFocusColor -> UIUtil.getLabelDisabledForeground()
+        else -> ColorUtil.fromHex(this.focusColorHex ?: DEFAULT_FOCUS_COLOR)
       }
     }
 

@@ -64,13 +64,12 @@ class FocusModeConfigurable : BoundSearchableConfigurable(message("MTForm.focusM
       indent {
         row {
           val overrideCheckbox = checkBox(message("MTForm.overrideFocusModeSwitch.text"))
-            .enabledIf(enabledCheckbox.selected.not())
             .bindSelected(mainSettings::overrideFocusColor)
 
           cell(colorChooser)
             .enabledIf(overrideCheckbox.selected.not())
             .bind(mainSettings::focusColorHex, FocusModeState.DEFAULT_FOCUS_COLOR)
-        }
+        }.enabledIf(enabledCheckbox.selected)
       }
 
     }
