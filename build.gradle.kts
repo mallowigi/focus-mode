@@ -185,12 +185,17 @@ tasks {
     password.set(environment("PRIVATE_KEY_PASSWORD"))
   }
 
+  buildSearchableOptions {
+    enabled = false
+  }
+
   publishPlugin {
     dependsOn("patchChangelog")
     token.set(environment("PUBLISH_TOKEN"))
     // The pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
     // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
     // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
-    channels.set(properties("pluginVersion").map { listOf(it.split('-').getOrElse(1) { "default" }.split('.').first()) })
+    channels.set(properties("pluginVersion")
+      .map { listOf(it.split('-').getOrElse(1) { "default" }.split('.').first()) })
   }
 }
