@@ -1,4 +1,4 @@
-# Focus Mode
+# Focus Mode 2
 
 <div align="center">
   <a href="https://www.material-theme.com">
