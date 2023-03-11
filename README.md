@@ -27,7 +27,7 @@ monotone color, in order for the focused part to receive all the necessary atten
 
 ### Installation
 
-You can install the plugin from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/12861-focus-mode) or
+You can install the plugin from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/21237-focus-mode-2) or
 from the Plugins' settings page.
 
 After installation, you will be able to see a new setting page, **Focus Mode**, under the _Appearance_ section.
