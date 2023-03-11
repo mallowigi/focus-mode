@@ -39,7 +39,7 @@ import com.mallowigi.focusmode.utils.bind
 
 /** Configurable for the MTConfig. */
 class MTMainSettingsConfigurable : BoundSearchableConfigurable(
-  "Settings",
+  message("MTForm.focusModeCheckbox.text"),
   "com.mallowigi.idea.help.$HELP_ID",
 ) {
   private var main: DialogPanel? = null
@@ -58,25 +58,23 @@ class MTMainSettingsConfigurable : BoundSearchableConfigurable(
 
     main = panel {
 
-      group(message("MTForm.customAccentColorLabel.text")) {
-        row {
-          label(message("MTForm.customAccentColorLabel.text"))
-            .comment(message("MTForm.customAccentColorLabel.toolTipText"))
-        }
-
-        indent {
-          row {
-            val overrideCheckbox = checkBox(message("MTForm.overrideAccentCheckbox.text"))
-              .bindSelected(mainSettings::overrideFocusColor)
-              .comment(message("MTForm.overrideAccentCheckbox.toolTipText"))
-
-            cell(colorChooser)
-              .enabledIf(overrideCheckbox.selected.not())
-              .bind(mainSettings::focusColorHex, MTMainConfigState.DEFAULT_FOCUS_COLOR)
-          }
-        }
-
+      row {
+        checkBox(message("MTForm.focusModeCheckbox.text"))
+          .bindSelected(mainSettings::isFocusModeEnabled)
+          .comment(message("MTForm.focusModeCheckbox.toolTipText"))
       }
+
+      indent {
+        row {
+          val overrideCheckbox = checkBox(message("MTForm.overrideFocusModeSwitch.text"))
+            .bindSelected(mainSettings::overrideFocusColor)
+
+          cell(colorChooser)
+            .enabledIf(overrideCheckbox.selected.not())
+            .bind(mainSettings::focusColorHex, MTMainConfigState.DEFAULT_FOCUS_COLOR)
+        }
+      }
+
     }
   }
 

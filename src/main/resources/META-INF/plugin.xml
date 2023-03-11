@@ -26,6 +26,8 @@
   <resource-bundle>messages.FocusModeBundle</resource-bundle>
 
   <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceImplementation="com.mallowigi.focusmode.MTConfig"
+                        id="MTConfig"/>
     <applicationConfigurable instance="com.mallowigi.focusmode.config.MTMainSettingsConfigurable"
                              groupId="appearance"/>
 
