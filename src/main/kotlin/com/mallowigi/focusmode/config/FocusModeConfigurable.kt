@@ -32,6 +32,7 @@ import com.intellij.ui.ColorPanel
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.bindSelected
+import com.intellij.ui.dsl.builder.bindValue
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.selected
 import com.intellij.ui.layout.not
@@ -69,6 +70,11 @@ class FocusModeConfigurable : BoundSearchableConfigurable(message("MTForm.focusM
           cell(colorChooser)
             .enabledIf(overrideCheckbox.selected.not())
             .bind(mainSettings::focusColorHex, FocusModeState.DEFAULT_FOCUS_COLOR)
+        }.enabledIf(enabledCheckbox.selected)
+
+        row("Opacity") {
+          slider(0, 100, 10, 50)
+            .bindValue(mainSettings::focusAlpha)
         }.enabledIf(enabledCheckbox.selected)
       }
 

@@ -42,6 +42,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiEditorUtil
+import com.intellij.ui.ColorUtil
 import com.mallowigi.focusmode.config.ConfigNotifier
 import com.mallowigi.focusmode.config.FocusModeConfig
 import com.mallowigi.focusmode.config.FocusModeState
@@ -199,7 +200,10 @@ class FocusedElementHighlightingCaretListener(
     val inactiveTextAttributes: TextAttributes
       get() {
         val inactiveTextAttributes = TextAttributes()
-        inactiveTextAttributes.foregroundColor = FocusModeState.instance.focusColor
+        inactiveTextAttributes.foregroundColor = ColorUtil.toAlpha(
+          FocusModeState.instance.focusColor,
+          FocusModeState.instance.focusAlpha
+        )
         return inactiveTextAttributes
       }
   }

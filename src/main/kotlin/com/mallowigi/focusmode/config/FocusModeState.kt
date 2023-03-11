@@ -41,6 +41,8 @@ class FocusModeState : BaseState() {
 
   var focusColorHex: String? by string(DEFAULT_FOCUS_COLOR)
 
+  var focusAlpha: Int by property(DEFAULT_OPACITY)
+
   val focusColor: Color
     get() {
       return when {
@@ -51,6 +53,7 @@ class FocusModeState : BaseState() {
 
   companion object {
     const val DEFAULT_FOCUS_COLOR: String = "#424242"
+    const val DEFAULT_OPACITY: Int = 75
 
     val instance: FocusModeState
       get() = FocusModeConfig.instance.settingsState
