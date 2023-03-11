@@ -32,19 +32,23 @@ from the Plugins' settings page.
 
 After installation, you will be able to see a new setting page, **Focus Mode**, under the _Appearance_ section.
 
-![settings.png](./docs/settings.png)
+![settings.png](https://raw.githubusercontent.com/mallowigi/focus-mode/main/docs/settings.png)
 
 ### Screenshots
 
-Focus Mode for Material Oceanic Theme
-![focusModeOceanic.png](./docs/focusModeOceanic.png)
+#### Focus Mode for Material Oceanic Theme
 
-Focus Mode for Material Lighter Theme
-![focusModeLighter.png](./docs/focusModeLighter.png)
+![focusModeOceanic.png](https://raw.githubusercontent.com/mallowigi/focus-mode/main/docs/focusModeOceanic.png)
 
-Custom Focus Mode color (black)
-![customFocusColor.png](./docs/customFocusColor.png)
+#### Focus Mode for Material Lighter Theme
 
-Custom Focus Mode color (white)
-![customFocusColorWhite.png](./docs/customFocusColorWhite.png)
+![focusModeLighter.png](https://raw.githubusercontent.com/mallowigi/focus-mode/main/docs/focusModeLighter.png)
+
+#### Custom Focus Mode color (black)
+
+![customFocusColor.png](https://raw.githubusercontent.com/mallowigi/focus-mode/main/docs/customFocusColor.png)
+
+#### Custom Focus Mode color (white)
+
+![customFocusColorWhite.png](https://raw.githubusercontent.com/mallowigi/focus-mode/main/docs/customFocusColorWhite.png)
 <!-- Plugin description end -->
