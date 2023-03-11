@@ -1,8 +1,8 @@
 package com.mallowigi.focusmode
 
 import com.intellij.ide.ui.LafManager
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.service
 import com.mallowigi.focusmode.config.MTMainConfigState
 
 @Service(Service.Level.APP)
@@ -15,20 +15,14 @@ class MTFocusModeManager {
    * @param enabled new state
    * @param editor pass the editor if needed
    */
-  private fun setEnabled(enabled: Boolean) {
+  fun setEnabled(enabled: Boolean) {
     MTMainConfigState.instance.isFocusModeEnabled = enabled
   }
 
   fun toggleFocusMode() {
     val focusModeEnabled = isEnabled()
     setEnabled(!focusModeEnabled)
-    applyFocusMode()
     reloadUI()
-  }
-
-  private fun applyFocusMode() {
-    val enabled = isEnabled()
-    setEnabled(enabled)
   }
 
   /** Trigger a reloadUI event. */
@@ -37,9 +31,6 @@ class MTFocusModeManager {
   }
 
   companion object {
-    /** Service instance. */
-    fun getInstance(): MTFocusModeManager =
-      ApplicationManager.getApplication().getService(MTFocusModeManager::class.java)
-
+    val instance: MTFocusModeManager by lazy { service() }
   }
 }

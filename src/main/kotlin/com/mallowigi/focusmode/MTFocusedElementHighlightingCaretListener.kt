@@ -51,7 +51,7 @@ class MTFocusedElementHighlightingCaretListener(
   private val editor: Editor,
   private val elementFinders: Collection<MTFocusedElementFinder>,
 ) : CaretListener, Disposable {
-  private val focusModeManager: MTFocusModeManager = MTFocusModeManager.getInstance()
+  private val focusModeManager: MTFocusModeManager = MTFocusModeManager.instance
 
   // A list of computed highlighted ranges
   private val highlighters: MutableList<RangeHighlighter> = mutableListOf()

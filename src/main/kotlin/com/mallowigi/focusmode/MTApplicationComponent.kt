@@ -24,17 +24,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ****************************************************************************
  */
-package com.mallowigi.focusmode.actions
+package com.mallowigi.focusmode
 
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.mallowigi.focusmode.MTFocusModeManager
+import com.intellij.ide.AppLifecycleListener
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.ex.EditorSettingsExternalizable
 import com.mallowigi.focusmode.config.MTMainConfigState
 
-class MTFocusModeAction : MTToggleAction() {
-  override fun isSelected(e: AnActionEvent): Boolean = MTMainConfigState.instance.isFocusModeEnabled
+class MTApplicationComponent : AppLifecycleListener {
+  val instance: MTApplicationComponent
+    get() = ApplicationManager.getApplication().getComponent(MTApplicationComponent::class.java)
 
-  override fun setSelected(e: AnActionEvent, state: Boolean) {
-    MTFocusModeManager.instance.toggleFocusMode()
-    super.setSelected(e, state)
+  override fun welcomeScreenDisplayed(): Unit = initComponent()
+
+  override fun appClosing(): Unit = disposeComponent()
+
+  private fun initComponent() {
+    applyFocusMode()
   }
+
+  private fun applyFocusMode() {
+    val enabled = MTMainConfigState.instance.isFocusModeEnabled
+    MTFocusModeManager.instance.setEnabled(enabled)
+  }
+
+  private fun disposeComponent() {
+    EditorSettingsExternalizable.getInstance().isFocusMode = false
+  }
+
 }

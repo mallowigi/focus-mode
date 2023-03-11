@@ -29,6 +29,8 @@ package com.mallowigi.focusmode.config
 import com.intellij.openapi.options.BoundSearchableConfigurable
 import com.intellij.openapi.ui.DialogPanel
 import com.intellij.ui.ColorPanel
+import com.intellij.ui.components.JBCheckBox
+import com.intellij.ui.dsl.builder.Cell
 import com.intellij.ui.dsl.builder.bindSelected
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.selected
@@ -37,7 +39,6 @@ import com.mallowigi.focusmode.MTConfig
 import com.mallowigi.focusmode.messages.FocusModeBundle.message
 import com.mallowigi.focusmode.utils.bind
 
-/** Configurable for the MTConfig. */
 class MTMainSettingsConfigurable : BoundSearchableConfigurable(
   message("MTForm.focusModeCheckbox.text"),
   "com.mallowigi.idea.help.$HELP_ID",
@@ -55,11 +56,12 @@ class MTMainSettingsConfigurable : BoundSearchableConfigurable(
 
   private fun initComponents() {
     val colorChooser = ColorPanel()
+    lateinit var enabledCheckbox: Cell<JBCheckBox>
 
     main = panel {
 
       row {
-        checkBox(message("MTForm.focusModeCheckbox.text"))
+        enabledCheckbox = checkBox(message("MTForm.focusModeCheckbox.text"))
           .bindSelected(mainSettings::isFocusModeEnabled)
           .comment(message("MTForm.focusModeCheckbox.toolTipText"))
       }
@@ -67,6 +69,7 @@ class MTMainSettingsConfigurable : BoundSearchableConfigurable(
       indent {
         row {
           val overrideCheckbox = checkBox(message("MTForm.overrideFocusModeSwitch.text"))
+            .enabledIf(enabledCheckbox.selected.not())
             .bindSelected(mainSettings::overrideFocusColor)
 
           cell(colorChooser)
@@ -89,10 +92,8 @@ class MTMainSettingsConfigurable : BoundSearchableConfigurable(
   }
 
   companion object {
-    /** Configurable ID. */
     const val ID: String = "MTMainSettingsConfigurable"
 
-    /** Help topic ID. */
     const val HELP_ID: String = "MTMainSettingsConfigurable"
   }
 

@@ -4,6 +4,7 @@
   <name>Focus Mode</name>
   <version>@version@</version>
   <vendor email="elior@material-theme.com" url="https://github.com/mallowigi">AtomMaterial</vendor>
+  <idea-version since-build="231.0"/>
 
   <description><![CDATA[
         <p>Focus Mode is a plugin that allows you to focus on your code by dimming the rest of the editor.</p>
@@ -55,4 +56,8 @@
             class="com.mallowigi.focusmode.actions.MTFocusModeAction"
             icon="/icons/actions/focusMode.svg"/>
   </actions>
+
+  <applicationListeners>
+    <listener class="com.mallowigi.focusmode.MTApplicationComponent" topic="com.intellij.ide.AppLifecycleListener"/>
+  </applicationListeners>
 </idea-plugin>
