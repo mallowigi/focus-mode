@@ -26,7 +26,6 @@
  */
 package com.mallowigi.focusmode.actions
 
-import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.ToggleAction
@@ -39,6 +38,7 @@ import com.intellij.util.ui.GraphicsUtil
 import com.intellij.util.ui.JBUI
 import com.mallowigi.focusmode.messages.FocusModeBundle.message
 import com.mallowigi.focusmode.notifications.Notifications.showSimple
+import com.mallowigi.focusmode.utils.isMacSystemMenuAction
 import java.awt.Component
 import java.awt.Graphics
 import javax.swing.Icon
@@ -49,9 +49,6 @@ abstract class BaseToggleAction(
   @NlsActions.ActionDescription description: String = "",
   icon: Icon? = null,
 ) : ToggleAction(text, description, icon) {
-
-  private val defaultIconSize = 18
-  private val iconRadius = 4
 
   /** Whether the action is toggled. */
   abstract override fun isSelected(e: AnActionEvent): Boolean
@@ -71,7 +68,7 @@ abstract class BaseToggleAction(
     val fallbackIcon = selectedFallbackIcon(icon)
     val actionButtonIcon = ObjectUtils.notNull(UIManager.getIcon("ActionButton.backgroundIcon"), fallbackIcon)
 
-    if (ActionPlaces.isMacSystemMenuAction(e)) {
+    if (isMacSystemMenuAction(e)) {
       //force showing check marks instead of toggle icons in the context menu
       presentation.icon = null
     } else {
@@ -96,7 +93,7 @@ abstract class BaseToggleAction(
   }
 
   private fun regularIcon(icon: Icon): Icon =
-    IconUtil.toSize(icon, JBUI.scale(defaultIconSize), JBUI.scale(defaultIconSize))
+    IconUtil.toSize(icon, JBUI.scale(DEFAULT_ICON_SIZE), JBUI.scale(DEFAULT_ICON_SIZE))
 
   private fun selectedFallbackIcon(icon: Icon?): Icon = object : Icon {
     override fun paintIcon(component: Component, g: Graphics, x: Int, y: Int) {
@@ -104,20 +101,25 @@ abstract class BaseToggleAction(
       try {
         GraphicsUtil.setupAAPainting(g2d)
         g2d.color = JBUI.CurrentTheme.ActionButton.pressedBackground()
-        g2d.fillRoundRect(0, 0, iconWidth, iconHeight, iconRadius, iconRadius)
+        g2d.fillRoundRect(0, 0, iconWidth, iconHeight, RADIUS, RADIUS)
       } finally {
         g2d.dispose()
       }
     }
 
-    override fun getIconWidth(): Int = icon?.iconWidth ?: JBUI.scale(defaultIconSize)
+    override fun getIconWidth(): Int = icon?.iconWidth ?: JBUI.scale(DEFAULT_ICON_SIZE)
 
-    override fun getIconHeight(): Int = icon?.iconHeight ?: JBUI.scale(defaultIconSize)
+    override fun getIconHeight(): Int = icon?.iconHeight ?: JBUI.scale(DEFAULT_ICON_SIZE)
   }
 
   override fun isDumbAware(): Boolean = true
 
   override fun getActionUpdateThread(): ActionUpdateThread {
     return ActionUpdateThread.BGT
+  }
+
+  companion object {
+    const val DEFAULT_ICON_SIZE = 18
+    const val RADIUS = 4
   }
 }
