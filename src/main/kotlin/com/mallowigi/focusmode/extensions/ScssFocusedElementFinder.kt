@@ -21,10 +21,10 @@ package com.mallowigi.focusmode.extensions
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.css.CssBlock
-import org.jetbrains.plugins.sass.SASSLanguage
+import org.jetbrains.plugins.scss.SCSSLanguage
 import org.jetbrains.plugins.scss.psi.SassScssBlock
 
-class SassFocusedElementFinder : AbstractFocusedElementFinder(SASSLanguage.INSTANCE) {
+class ScssFocusedElementFinder : AbstractFocusedElementFinder(SCSSLanguage.INSTANCE) {
   override fun isFocusParent(element: PsiElement): Boolean =
     element is SassScssBlock || element is CssBlock
 }
