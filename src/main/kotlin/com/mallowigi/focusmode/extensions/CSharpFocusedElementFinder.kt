@@ -27,12 +27,18 @@
 package com.mallowigi.focusmode.extensions
 
 import com.intellij.psi.PsiElement
-import org.jetbrains.plugins.ruby.ruby.lang.RubyLanguage
-import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.classes.RClass
-import org.jetbrains.plugins.ruby.ruby.lang.psi.controlStructures.methods.RMethod
+import com.jetbrains.rider.ideaInterop.fileTypes.csharp.CSharpLanguage
+import com.jetbrains.rider.ideaInterop.fileTypes.csharp.psi.CSharpFile
+import com.jetbrains.rider.ideaInterop.fileTypes.csharp.psi.CSharpNamespaceBody
+import com.jetbrains.rider.ideaInterop.fileTypes.csharp.psi.impl.*
 
-class RubyFocusedElementFinder : AbstractFocusedElementFinder(RubyLanguage.INSTANCE) {
-
+class CSharpFocusedElementFinder : AbstractFocusedElementFinder(CSharpLanguage) {
   override fun isFocusParent(element: PsiElement): Boolean =
-    element is RClass || element is RMethod
+    element is CSharpMethodDeclaration
+      || element is CSharpPropertyDeclaration
+      || element is CSharpInterfaceDeclaration
+      || element is CSharpEnumMemberDeclaration
+      || element is CSharpDummyDeclaration
+      || element is CSharpNamespaceBody
+      || element is CSharpFile;
 }
