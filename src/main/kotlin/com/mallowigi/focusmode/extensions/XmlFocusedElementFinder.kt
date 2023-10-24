@@ -24,7 +24,6 @@ package com.mallowigi.focusmode.extensions
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
-import com.mallowigi.focusmode.extensions.AbstractFocusedElementFinder
 
 class XmlFocusedElementFinder : AbstractFocusedElementFinder(XMLLanguage.INSTANCE) {
   override fun isFocusParent(element: PsiElement): Boolean =

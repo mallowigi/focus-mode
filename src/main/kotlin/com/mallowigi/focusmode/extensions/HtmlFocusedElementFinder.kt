@@ -24,7 +24,6 @@ package com.mallowigi.focusmode.extensions
 import com.intellij.lang.html.HTMLLanguage
 import com.intellij.psi.PsiElement
 import com.intellij.psi.html.HtmlTag
-import com.mallowigi.focusmode.extensions.AbstractFocusedElementFinder
 
 class HtmlFocusedElementFinder : AbstractFocusedElementFinder(HTMLLanguage.INSTANCE) {
   override fun isFocusParent(element: PsiElement): Boolean =

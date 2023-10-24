@@ -24,6 +24,7 @@
   <depends optional="true" config-file="withGo.xml">org.jetbrains.plugins.go</depends>
   <depends optional="true" config-file="withSass.xml">org.jetbrains.plugins.sass</depends>
   <depends optional="true" config-file="withScss.xml">org.jetbrains.plugins.sass</depends>
+  <depends optional="true" config-file="withCSharp.xml">com.intellij.modules.rider</depends>
 
   <resource-bundle>messages.FocusModeBundle</resource-bundle>
 
