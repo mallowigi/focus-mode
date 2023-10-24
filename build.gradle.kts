@@ -32,6 +32,7 @@ version = properties("pluginVersion").get()
 
 val pluginsVersion: String = properties("pluginsVersion").get()
 val sassVersion: String = properties("sassVersion").get()
+val angularVersion: String = properties("angularVersion").get()
 
 // Configure project's dependencies
 repositories {
@@ -65,6 +66,7 @@ intellij {
     // javascript
     "JavaScript",
     "Pythonid:$pluginsVersion",
+    "AngularJS:$angularVersion",
     "org.jetbrains.plugins.ruby:$pluginsVersion",
     "org.jetbrains.plugins.go:$pluginsVersion",
     "com.jetbrains.php:$pluginsVersion",
@@ -178,6 +180,8 @@ tasks {
     systemProperty("ide.mac.message.dialogs.as.sheets", "false")
     systemProperty("jb.privacy.policy.text", "<!--999.999-->")
     systemProperty("jb.consents.confirmation.enabled", "false")
+    // Uncomment and set proper path for testing with Rider
+    // ideDir.set(file("/Applications/Rider EAP.app/Contents"))
   }
 
   signPlugin {
