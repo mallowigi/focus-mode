@@ -32,8 +32,6 @@ import com.intellij.openapi.editor.ex.EditorSettingsExternalizable
 import com.mallowigi.focusmode.config.FocusModeState
 
 class ApplicationComponent : AppLifecycleListener {
-  val instance: ApplicationComponent
-    get() = ApplicationManager.getApplication().getComponent(ApplicationComponent::class.java)
 
   override fun welcomeScreenDisplayed(): Unit = initComponent()
 

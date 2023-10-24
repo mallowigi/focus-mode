@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2023-10-24
+
+### Added
+
+- Thanks to @stevium for the updates!
+- Support for SASS
+- Support for Angular 2 Templates
+- Support for C#
+
 ## [1.0.1] - 2023-03-11
 
 ### Added

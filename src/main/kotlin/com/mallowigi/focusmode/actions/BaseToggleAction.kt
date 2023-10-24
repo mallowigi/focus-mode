@@ -74,7 +74,10 @@ abstract class BaseToggleAction(
     } else {
       // Recreate the action button look
       when {
-        selected -> e.presentation.icon = LayeredIcon(actionButtonIcon, regularIcon(icon))
+        selected -> e.presentation.icon = LayeredIcon(2).apply {
+          setIcon(actionButtonIcon, 0)
+          setIcon(regularIcon(this), 1)
+        }
         else -> e.presentation.icon = regularIcon(icon)
       }
     }
