@@ -109,6 +109,7 @@ modules.xml
 
 # Package Files #
 *.jar
+!libs/rider-ideainterop.jar
 *.war
 *.nar
 *.ear
