@@ -1,7 +1,7 @@
 repo_name: mallowigi/focus-mode
-report_id: 0e796886e83f163cef98c35c6120681c
+report_id: 01da1491fd198af2405208708fae2901
 repo_type: Public
-timestamp: '2023-11-19T07:57:22+00:00'
+timestamp: '2023-12-14T13:14:53+00:00'
 requested_by: mallowigi
 provider: github
 branch: main
@@ -43,7 +43,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Continuous Integration
   image_url: https://img.stackshare.io/service/11563/actions.png
-  detection_source: ".github/workflows/run-ui-tests.yml"
+  detection_source: ".github/workflows/build.yml"
   last_updated_by: Elior Boukhobza
   last_updated_on: 2023-03-10 16:40:03.000000000 Z
 - name: Gradle
@@ -55,6 +55,6 @@ tools:
   category: Build, Test, Deploy
   sub_category: Java Build Tools
   image_url: https://img.stackshare.io/service/975/gradlephant-social-black-bg.png
-  detection_source: gradlew.bat
+  detection_source: gradlew
   last_updated_by: Elior Boukhobza
   last_updated_on: 2023-03-10 16:40:03.000000000 Z
