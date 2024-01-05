@@ -1,7 +1,8 @@
 repo_name: mallowigi/focus-mode
-report_id: 01da1491fd198af2405208708fae2901
+report_id: 0e796886e83f163cef98c35c6120681c
+version: 0.1
 repo_type: Public
-timestamp: '2023-12-14T13:14:53+00:00'
+timestamp: '2024-01-05T08:37:07+00:00'
 requested_by: mallowigi
 provider: github
 branch: main
@@ -16,6 +17,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/mallowigi/focus-mode
   detection_source: Repo Metadata
 - name: Kotlin
   description: Statically typed Programming Language targeting JVM and JavaScript
@@ -25,6 +27,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/3750/pCfEzr6L.png
+  detection_source_url: https://github.com/mallowigi/focus-mode
   detection_source: Repo Metadata
 - name: Git
   description: Fast, scalable, distributed revision control system
@@ -34,6 +37,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/mallowigi/focus-mode
   detection_source: Repo Metadata
 - name: GitHub Actions
   description: Automate your workflow from idea to production
@@ -43,6 +47,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Continuous Integration
   image_url: https://img.stackshare.io/service/11563/actions.png
+  detection_source_url: https://github.com/mallowigi/focus-mode/blob/main/.github/workflows/build.yml
   detection_source: ".github/workflows/build.yml"
   last_updated_by: Elior Boukhobza
   last_updated_on: 2023-03-10 16:40:03.000000000 Z
@@ -55,6 +60,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Java Build Tools
   image_url: https://img.stackshare.io/service/975/gradlephant-social-black-bg.png
+  detection_source_url: https://github.com/mallowigi/focus-mode/blob/main/gradlew
   detection_source: gradlew
   last_updated_by: Elior Boukhobza
   last_updated_on: 2023-03-10 16:40:03.000000000 Z
