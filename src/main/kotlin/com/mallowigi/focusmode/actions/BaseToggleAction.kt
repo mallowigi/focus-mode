@@ -78,7 +78,7 @@ abstract class BaseToggleAction(
           setIcon(actionButtonIcon, 0)
           setIcon(regularIcon(this), 1)
         }
-        else -> e.presentation.icon = regularIcon(icon)
+        else -> e.presentation.icon = regularIcon(icon!!)
       }
     }
   }

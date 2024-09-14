@@ -192,3 +192,7 @@ gradle-app.setting
 src/test/resources/
 
 publishToken
+
+.intellijPlatform
+.kotlin/sessions
+.idea/material_theme_project_new.xml

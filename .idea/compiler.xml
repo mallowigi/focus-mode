@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
+      <module name="focus-mode-jetbrains" target="17" />
       <module name="focus-mode-jetbrains.main" target="17" />
       <module name="focus-mode-jetbrains.test" target="17" />
     </bytecodeTargetLevel>

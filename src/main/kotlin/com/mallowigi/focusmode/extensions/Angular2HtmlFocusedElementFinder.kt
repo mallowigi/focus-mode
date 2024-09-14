@@ -23,7 +23,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.html.HtmlTag
 import org.angular2.lang.html.Angular2HtmlLanguage
 
-class Angular2HtmlFocusedElementFinder : AbstractFocusedElementFinder(Angular2HtmlLanguage.INSTANCE) {
+class Angular2HtmlFocusedElementFinder : AbstractFocusedElementFinder(Angular2HtmlLanguage) {
   override fun isFocusParent(element: PsiElement): Boolean =
     element is HtmlTag
 }

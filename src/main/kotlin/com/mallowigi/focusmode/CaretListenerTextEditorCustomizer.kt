@@ -28,21 +28,24 @@ package com.mallowigi.focusmode
 
 import com.intellij.openapi.fileEditor.TextEditor
 import com.intellij.openapi.fileEditor.impl.text.TextEditorCustomizer
+import com.intellij.openapi.progress.blockingContext
 import com.intellij.openapi.util.Disposer
 
 class CaretListenerTextEditorCustomizer : TextEditorCustomizer {
-  override fun customize(textEditor: TextEditor) {
-    val editor = textEditor.editor
-    val project = editor.project ?: return
+  override suspend fun execute(textEditor: TextEditor) {
+    blockingContext {
+      val editor = textEditor.editor
+      val project = editor.project ?: return@blockingContext
 
-    // Get element finder extensions
-    val elementFinders = this.collectElementFinders()
+      // Get element finder extensions
+      val elementFinders = this.collectElementFinders()
 
-    // Add a caret listener for the current editor and project
-    val listener = FocusedElementHighlightingCaretListener(project, editor, elementFinders)
-    editor.caretModel.addCaretListener(listener)
-    // Dont forget to dispose
-    Disposer.register(textEditor, listener)
+      // Add a caret listener for the current editor and project
+      val listener = FocusedElementHighlightingCaretListener(project, editor, elementFinders)
+      editor.caretModel.addCaretListener(listener)
+      // Dont forget to dispose
+      Disposer.register(textEditor, listener)
+    }
   }
 
   /**
