@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+## [4.0.0] - 2024-09-18
+
+### Fixes
+
+- Fix Japanese Language applying on the IDE
+
+### Removed
+
+- Remove support for C# due to IntelliJ Gradle Plugin V2 changes that I don't have the time to fix
+
 ## [3.0.0] - 2023-10-24
 
 ### Added
