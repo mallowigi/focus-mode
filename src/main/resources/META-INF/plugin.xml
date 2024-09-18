@@ -20,18 +20,17 @@
   <depends optional="true" config-file="withPhp.xml">com.jetbrains.php</depends>
   <depends optional="true" config-file="withJson.xml">com.intellij.modules.json</depends>
   <depends optional="true" config-file="withCss.xml">com.intellij.css</depends>
-  <depends optional="true" config-file="withPython.xml">Pythonid</depends>
+  <depends optional="true" config-file="withPython.xml">PythonCore</depends>
   <depends optional="true" config-file="withGo.xml">org.jetbrains.plugins.go</depends>
   <depends optional="true" config-file="withSass.xml">org.jetbrains.plugins.sass</depends>
   <depends optional="true" config-file="withScss.xml">org.jetbrains.plugins.sass</depends>
   <depends optional="true" config-file="withAngular2Html.xml">AngularJS</depends>
-  <depends optional="true" config-file="withCSharp.xml">com.intellij.modules.rider</depends>
 
   <resource-bundle>messages.FocusModeBundle</resource-bundle>
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationService serviceImplementation="com.mallowigi.focusmode.config.FocusModeConfig"
-                        id="MTConfig"/>
+                        id="FocusModeConfig"/>
     <applicationConfigurable instance="com.mallowigi.focusmode.config.FocusModeConfigurable"
                              groupId="appearance"/>
 
